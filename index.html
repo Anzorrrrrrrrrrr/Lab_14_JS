@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 14: Data Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        .task {
+            margin-bottom: 20px;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e0f7fa;
+            border: 1px solid #009688;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        input[type="text"], input[type="email"] {
+            padding: 5px;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Lab 14: Data Validation</h2>
+
+   
+    <div class="task">
+        <h3>1. Check if the first character is uppercase</h3>
+        <input type="text" id="upperCaseInput" placeholder="Enter text">
+        <button class="btn" onclick="upperCase()">Check</button>
+        <div id="upperCaseResult" class="result"></div>
+    </div>
+
+   
+    <div class="task">
+        <h3>2. Validate Email</h3>
+        <input type="email" id="emailInput" placeholder="Enter email">
+        <button class="btn" onclick="checkEmail()">Check</button>
+        <div id="emailResult" class="result"></div>
+    </div>
+
+    <div class="task">
+        <h3>3. Find pattern with 'd', followed by 'b', followed by 'd'</h3>
+        <input type="text" id="regexInput" placeholder="Enter text">
+        <button class="btn" onclick="findPattern()">Find</button>
+        <div id="regexResult" class="result"></div>
+    </div>
+
+
+    <div class="task">
+        <h3>4. Swap two substrings</h3>
+        <input type="text" id="swapInput" placeholder="Enter two words">
+        <button class="btn" onclick="swapStrings()">Swap</button>
+        <div id="swapResult" class="result"></div>
+    </div>
+
+  
+    <div class="task">
+        <h3>5. Validate Bank Card Number</h3>
+        <input type="text" id="cardInput" placeholder="Enter card number">
+        <button class="btn" onclick="validateCard()">Check</button>
+        <div id="cardResult" class="result"></div>
+    </div>
+
+   
+    <div class="task">
+        <h3>6. Validate Advanced Email</h3>
+        <input type="email" id="advancedEmailInput" placeholder="Enter email">
+        <button class="btn" onclick="checkEmailAdvanced()">Check</button>
+        <div id="advancedEmailResult" class="result"></div>
+    </div>
+
+
+    <div class="task">
+        <h3>7. Check Login and Numbers</h3>
+        <input type="text" id="loginInput" placeholder="Enter login">
+        <button class="btn" onclick="checkLogin()">Check</button>
+        <div id="loginResult" class="result"></div>
+    </div>
+
+    <script>
+      
+        function upperCase() {
+            let str = document.getElementById('upperCaseInput').value;
+            let result = str[0] === str[0].toUpperCase() 
+                ? "String's starts with uppercase character" 
+                : "String's not starts with uppercase character";
+            document.getElementById('upperCaseResult').innerText = result;
+        }
+
+    
+        function checkEmail() {
+            let email = document.getElementById('emailInput').value;
+            let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            let result = emailRegex.test(email) ? "Valid Email" : "Invalid Email";
+            document.getElementById('emailResult').innerText = result;
+        }
+
+    
+        function findPattern() {
+            let str = document.getElementById('regexInput').value;
+            let regex = /d[b]+d/gi;
+            let matches = str.match(regex);
+            document.getElementById('regexResult').innerText = matches ? matches.join(", ") : "No match found";
+        }
+
+     
+        function swapStrings() {
+            let str = document.getElementById('swapInput').value;
+            let swapped = str.replace(/(.*?) (.*)/, "$2, $1");
+            document.getElementById('swapResult').innerText = swapped;
+        }
+
+        function validateCard() {
+            let cardNumber = document.getElementById('cardInput').value;
+            let cardRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+            let result = cardRegex.test(cardNumber) ? "Valid Card Number" : "Invalid Card Number";
+            document.getElementById('cardResult').innerText = result;
+        }
+
+ 
+        function checkEmailAdvanced() {
+            let email = document.getElementById('advancedEmailInput').value;
+            let emailRegex = /^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            let result = emailRegex.test(email) ? "Email is correct!" : "Email is not correct!";
+            document.getElementById('advancedEmailResult').innerText = result;
+        }
+
+      
+        function checkLogin() {
+            let login = document.getElementById('loginInput').value;
+            let loginRegex = /^[a-zA-Z][a-zA-Z0-9]{1,9}$/;
+            let numbers = login.match(/(\d+(\.\d+)?)/g);
+            let result = loginRegex.test(login) ? "Valid Login" : "Invalid Login";
+            document.getElementById('loginResult').innerText = result;
+            if (numbers) {
+                document.getElementById('loginResult').innerText += "\nNumbers: " + numbers.join(', ');
+            }
+        }
+    </script>
+
+</body>
+</html>
